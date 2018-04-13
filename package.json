@@ -1,0 +1,24 @@
+{
+  "name": "simpleapp",
+  "version": "1.0.0",
+  "description": "This is a simple app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "bootstrap": "^4.0.0-alpha.6",
+    "dateformat": "^3.0.2",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "express-partials": "^0.3.0",
+    "jquery": "^3.2.1",
+    "mysql": "^2.14.1",
+    "popper.js": "^1.14.3",
+    "tether": "^1.4.0"
+  }
+}
