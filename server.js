@@ -51,11 +51,13 @@ app.get('/event/add', function (req, res) {
 });
 
 app.post('/event/add', function(req,res){
-	var query = "INSERT INTO `tracking` (starttime, comments, rating) VALUES (";
+	var query = "INSERT INTO `tracking` (starttime, description, comments) VALUES (";
 	    query +=  " NOW(),";
 //          query +=  " '"+dateFormat(req.body.starttime,"yyyy-mm-dd'T'HH:MM:ss")+"',";
+//	    query +=  " '"+req.body.starttime +"',";
+	    query +=  " '"+req.body.description+"',";
 	    query +=  " '"+req.body.comments+"',";
-	    query +=  " '"+req.body.rating+"') ";
+//	    query +=  " '"+req.body.rating+"') ";
 
 	con.query(query, function (err, result) {
 	     res.redirect(baseURL);
@@ -77,15 +79,16 @@ app.get('/event/edit/:id', function(req,res){
 
 app.post('/event/edit/:id', function(req,res){
         var query = "UPDATE `tracking` SET";
+	    query += " `description` =  '"+req.body.description+"',";
             query += " `comments` =  '"+req.body.comments+"',";
             query += " `rating` = ' "+req.body.rating+"'";
 	    query += " WHERE `tracking`.`id` =  "+req.body.id+"";
 
         con.query(query, function (err, result) {
-	  if (result.affectedRows)
-	   {
+	//  if (result.affectedRows)
+	//   {
              res.redirect(baseURL);
-	   }
+	//   }
         });
 });
 
