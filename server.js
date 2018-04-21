@@ -51,9 +51,9 @@ app.get('/event/add', function (req, res) {
 });
 
 app.post('/event/add', function(req,res){
-	var query = "INSERT INTO `tracking` (comments, rating) VALUES (";
-//	    query +=  " '"+req.body.starttime+"',";
-            query +=  " '"+dateFormat(req.body.starttime,"yyyy-mm-dd'T'HH:MM:ss")+"',";
+	var query = "INSERT INTO `tracking` (starttime, comments, rating) VALUES (";
+	    query +=  " NOW(),";
+//          query +=  " '"+dateFormat(req.body.starttime,"yyyy-mm-dd'T'HH:MM:ss")+"',";
 	    query +=  " '"+req.body.comments+"',";
 	    query +=  " '"+req.body.rating+"') ";
 
@@ -61,6 +61,7 @@ app.post('/event/add', function(req,res){
 	     res.redirect(baseURL);
 	});
 });
+
 
 /* Routing for Edit. This is a GET method to data and prepopulate form*/
 app.get('/event/edit/:id', function(req,res){
@@ -90,6 +91,33 @@ app.post('/event/edit/:id', function(req,res){
 
 
 
+app.get('/event/endtime/:id', function(req,res){
+
+	var query ="UPDATE tracking SET finishtime=NOW(), duration=TIMEDIFF(finishtime,starttime) WHERE id ='"+ req.params.id + "'";
+
+        con.query(query, function (err, result) {
+          if (result.affectedRows)
+           {
+             res.redirect(baseURL);
+           }
+         });
+});
+
+
+app.get('/event/astarttime', function(req,res){
+	var query="INSERT INTO tracking (starttime) VALUES (NOW())"; 
+       con.query(query, function (err, result) {
+             res.redirect(baseURL);
+         });
+});
+
+app.get('/event/aendtime', function(req,res){
+	var query ="UPDATE tracking SET finishtime=NOW(), duration=TIMEDIFF(finishtime,starttime) WHERE id =LAST_INSERT_ID()";
+      
+       con.query(query, function (err, result) {
+             res.redirect(baseURL);
+         });
+});
 app.get('/event/delete/:id', function(req,res){
 
 	var query ="DELETE FROM tracking WHERE id ='"+ req.params.id + "'";
