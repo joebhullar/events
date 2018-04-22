@@ -56,7 +56,7 @@ app.post('/event/add', function(req,res){
 //          query +=  " '"+dateFormat(req.body.starttime,"yyyy-mm-dd'T'HH:MM:ss")+"',";
 //	    query +=  " '"+req.body.starttime +"',";
 	    query +=  " '"+req.body.description+"',";
-	    query +=  " '"+req.body.comments+"',";
+	    query +=  " '"+req.body.comments+"')";
 //	    query +=  " '"+req.body.rating+"') ";
 
 	con.query(query, function (err, result) {
